@@ -34,7 +34,7 @@
     </header>
 
     <main class="container">
-        <section id="about">
+        <section id="about" data-reveal>
             <h2>About</h2>
             <p>
                 My public repositories show the strongest evidence in full-stack web development, applied machine learning, and interactive front-end work. The most substantial projects combine Django or Flask backends, React or server-rendered interfaces, and deployment or workflow automation through GitHub Actions and GitHub Pages.
@@ -44,7 +44,7 @@
             </p>
         </section>
 
-        <section id="skills">
+        <section id="skills" data-reveal>
             <h2>Skills</h2>
 
             <h3>Languages</h3>
@@ -66,7 +66,7 @@
             </ul>
         </section>
 
-        <section id="projects">
+        <section id="projects" data-reveal>
             <h2>Projects</h2>
 
             <article class="project-card">
@@ -125,7 +125,7 @@
             </article>
         </section>
 
-        <section id="quality">
+        <section id="quality" data-reveal>
             <h2>Engineering Quality</h2>
             <ul>
                 <li><strong>Testing and tooling:</strong> design-portfolio includes Vitest, Playwright, ESLint, and a deployment workflow.</li>
@@ -136,7 +136,7 @@
         </section>
     </main>
 
-    <footer id="contact" class="container">
+    <footer id="contact" class="container" data-reveal>
         <h2>Contact</h2>
         <p>
             <a href="mailto:krishnamoorthitech2224@gmail.com">krishnamoorthitech2224@gmail.com</a> |
@@ -144,5 +144,24 @@
             <a href="https://github.com/gkrishna247" target="_blank" rel="noopener noreferrer">GitHub</a>
         </p>
     </footer>
+
+    <script>
+    (function () {
+        var els = document.querySelectorAll('[data-reveal]');
+        if (!('IntersectionObserver' in window)) {
+            els.forEach(function (el) { el.classList.add('revealed'); });
+            return;
+        }
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        els.forEach(function (el) { observer.observe(el); });
+    })();
+    </script>
 </body>
 </html>

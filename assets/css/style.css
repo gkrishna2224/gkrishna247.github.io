@@ -87,11 +87,13 @@ header {
     position: relative;
 }
 
-.nav-list a:hover {
+.nav-list a:hover,
+.nav-list a:focus {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    outline: none;
 }
 
 /* Main content styles */
@@ -128,7 +130,6 @@ main h2:after {
 section {
     margin-bottom: 50px;
     padding: 0 20px;
-    animation: fadeInUp 0.6s ease;
 }
 
 section:first-child {
@@ -137,6 +138,42 @@ section:first-child {
 
 section:last-child {
     padding-bottom: 40px;
+}
+
+/* Hero entrance animation */
+@keyframes heroEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header-content h1 {
+    animation: heroEntrance 0.8s ease-out both;
+}
+
+.header-content .contact-info {
+    animation: heroEntrance 0.8s ease-out 0.15s both;
+}
+
+.header-content .social-links {
+    animation: heroEntrance 0.8s ease-out 0.3s both;
+}
+
+/* Scroll reveal */
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+[data-reveal].revealed {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 @keyframes fadeInUp {
@@ -174,7 +211,8 @@ section li {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-section li:hover {
+section li:hover,
+section li:focus-within {
     transform: translateX(10px);
     box-shadow: 0 5px 20px rgba(102, 126, 234, 0.1);
 }
@@ -199,6 +237,13 @@ section li:hover {
     background: linear-gradient(135deg, #f8f9ff 0%, #e6e8ff 100%);
     border-left: 4px solid #667eea;
     font-weight: 500;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#skills li:hover,
+#skills li:focus-within {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.15);
 }
 
 /* Projects section enhancements */
@@ -214,7 +259,16 @@ section li:hover {
     background: linear-gradient(135deg, #f8f9ff 0%, #eef1ff 100%);
     border-radius: 16px;
     border: 1px solid #e1e6ff;
+    border-top: 3px solid transparent;
     box-shadow: 0 8px 24px rgba(102, 126, 234, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-top-color 0.25s ease;
+}
+
+.project-card:hover,
+.project-card:focus-within {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.18);
+    border-top-color: #667eea;
 }
 
 .project-card p {
@@ -302,17 +356,31 @@ footer a:hover {
         width: 95%;
         padding: 15px;
     }
-    
+
     .header-content h1 {
         font-size: 1.8rem;
     }
-    
+
     .nav-list {
         gap: 10px;
     }
-    
+
     .nav-list a {
         padding: 6px 12px;
         font-size: 0.8rem;
+    }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    [data-reveal] {
+        opacity: 1;
+        transform: none;
     }
 }
